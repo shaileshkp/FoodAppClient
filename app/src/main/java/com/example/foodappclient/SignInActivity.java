@@ -1,6 +1,7 @@
 package com.example.foodappclient;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.foodappclient.common.Common;
 import com.example.foodappclient.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,7 +51,10 @@ public class SignInActivity extends AppCompatActivity {
                             User user = dataSnapshot.child(etxtPhno.getText().toString().trim()).getValue(User.class);
                             if(user.getPass().equals(etxtPass.getText().toString().trim())) {
                                 mDialog.dismiss();
-                                Toast.makeText(SignInActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SignInActivity.this, Home.class);
+                                Common.currentUser = user;
+                                startActivity(intent);
+                                finish();
                             }
                             else {
                                 mDialog.dismiss();
